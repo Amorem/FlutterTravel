@@ -6,7 +6,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> _location = ['Japan', 'Moscow', 'London', 'Paris'];
+  List<String> _location = ['Moscow', 'Japan', 'London', 'Paris'];
   int _activeLocation = 1;
 
   @override
@@ -118,29 +118,39 @@ class _HomePageState extends State<HomePage> {
       child: ListView.builder(
         itemCount: articles.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.05),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.30,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(articles[index].image),
+          return Stack(
+            overflow: Overflow.visible,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * 0.05),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(articles[index].image),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black38,
+                            spreadRadius: 2,
+                            blurRadius: 20,
+                            offset: Offset(0, 6)),
+                      ],
+                    ),
+                    child: _articleInfoColumn(_context, index),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38,
-                        spreadRadius: 2,
-                        blurRadius: 20,
-                        offset: Offset(0, 6)),
-                  ],
                 ),
-                child: _articleInfoColumn(_context, index),
               ),
-            ),
+              Positioned(
+                bottom: 30,
+                left: MediaQuery.of(context).size.width * 0.10,
+                child: _socialInfoContainer(_context, index),
+              ),
+            ],
           );
         },
       ),
@@ -226,7 +236,7 @@ class _HomePageState extends State<HomePage> {
               width: 50,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('https://i.pravatar.cc/200'),
+                  image: NetworkImage("https://i.pravatar.cc/${_index + 1}00"),
                 ),
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 2),
@@ -276,6 +286,58 @@ class _HomePageState extends State<HomePage> {
           ],
         )
       ],
+    );
+  }
+
+  Widget _socialInfoContainer(BuildContext _context, int _index) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width * 0.70,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.favorite_border,
+                color: Colors.redAccent,
+              ),
+              Text(
+                articles[_index].likes.toString(),
+                style: TextStyle(color: Colors.redAccent),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.comment,
+                color: Colors.grey,
+              ),
+              Text(
+                articles[_index].comments.toString(),
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Icon(
+                Icons.share,
+                color: Colors.grey,
+              ),
+              Text(
+                articles[_index].shares.toString(),
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

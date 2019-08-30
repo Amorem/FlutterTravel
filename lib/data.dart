@@ -21,7 +21,7 @@ List<Article> articles = [
       true,
       'Osaka Japan',
       50,
-      'Hussain Mustafa'),
+      'Téa Lamente'),
   Article(
       'Known as the sleepless town for obvious reasons',
       'https://images.wallpaperscraft.com/image/night_lights_buildings_railway_station_ueno_tokyo_59511_1920x1080.jpg',
@@ -30,7 +30,7 @@ List<Article> articles = [
       true,
       'Kabuikicho Japan',
       1250,
-      'Tim Salvatore'),
+      'Johnny Guithar'),
   Article(
       'Japan\'s second largest metropolitan area',
       'https://images.wallpaperscraft.com/image/street_neon_night_city_139596_1920x1080.jpg',
@@ -39,5 +39,5 @@ List<Article> articles = [
       true,
       'Tokyo Japan',
       1000,
-      'Ely Marya'),
+      'Sarah Croche'),
 ];
