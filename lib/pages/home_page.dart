@@ -183,20 +183,24 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: Text(
                   articles[_index].title,
-                  maxLines: 3,
+                  maxLines: 2,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              Text(
-                articles[_index].location,
-                style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w300),
+              Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 10),
+                child: Text(
+                  articles[_index].location,
+                  style: TextStyle(
+                      color: Colors.white54,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300),
+                ),
               ),
+              _ratingWidget(_context, _index),
             ],
           ),
         )
@@ -216,7 +220,7 @@ class _HomePageState extends State<HomePage> {
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(
-              30, MediaQuery.of(context).size.height * 0.05, 30, 0),
+              40, MediaQuery.of(context).size.height * 0.02, 20, 0),
           child: _detailInfoRow(_context, _index),
         )
       ],
@@ -337,6 +341,28 @@ class _HomePageState extends State<HomePage> {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  Widget _ratingWidget(BuildContext _context, int _index) {
+    return Row(
+      children: List<Widget>.generate(
+        5,
+        (_currentIndex) {
+          double _fillAmount = articles[_index].rating - _currentIndex;
+          Icon _starIcon;
+          if (_fillAmount >= 1) {
+            _starIcon = Icon(Icons.star, color: Colors.amberAccent, size: 15);
+          } else if (_fillAmount >= 0.5) {
+            _starIcon =
+                Icon(Icons.star_half, color: Colors.amberAccent, size: 15);
+          } else {
+            _starIcon =
+                Icon(Icons.star_border, color: Colors.amberAccent, size: 15);
+          }
+          return _starIcon;
+        },
       ),
     );
   }
