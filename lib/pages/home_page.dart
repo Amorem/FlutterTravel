@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _detailInfoRow(BuildContext _context) {
+  Widget _detailInfoRow(BuildContext _context, int _index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -161,6 +161,34 @@ class _HomePageState extends State<HomePage> {
             size: 30,
           ),
           onPressed: () {},
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Text(
+                  articles[_index].title,
+                  maxLines: 3,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Text(
+                articles[_index].location,
+                style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w300),
+              ),
+            ],
+          ),
         )
       ],
     );
@@ -173,8 +201,14 @@ class _HomePageState extends State<HomePage> {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Padding(
-            padding: EdgeInsets.fromLTRB(10, 10, 30, 10),
-            child: _authorInfoRow(_context, _index)),
+          padding: EdgeInsets.fromLTRB(10, 10, 30, 10),
+          child: _authorInfoRow(_context, _index),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+              30, MediaQuery.of(context).size.height * 0.05, 30, 0),
+          child: _detailInfoRow(_context, _index),
+        )
       ],
     );
   }
