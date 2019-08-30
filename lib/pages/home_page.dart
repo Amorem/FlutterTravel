@@ -126,22 +126,122 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.30,
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(articles[index].image),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black38,
-                          spreadRadius: 2,
-                          blurRadius: 20,
-                          offset: Offset(0, 6)),
-                    ]),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(articles[index].image),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38,
+                        spreadRadius: 2,
+                        blurRadius: 20,
+                        offset: Offset(0, 6)),
+                  ],
+                ),
+                child: _articleInfoColumn(_context, index),
               ),
             ),
           );
         },
       ),
+    );
+  }
+
+  Widget _detailInfoRow(BuildContext _context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        FloatingActionButton(
+          backgroundColor: Colors.white,
+          child: Icon(
+            Icons.play_arrow,
+            color: Colors.redAccent,
+            size: 30,
+          ),
+          onPressed: () {},
+        )
+      ],
+    );
+  }
+
+  Widget _articleInfoColumn(BuildContext _context, int _index) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Padding(
+            padding: EdgeInsets.fromLTRB(10, 10, 30, 10),
+            child: _authorInfoRow(_context, _index)),
+      ],
+    );
+  }
+
+  Widget _authorInfoRow(BuildContext _context, int _index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage('https://i.pravatar.cc/200'),
+                ),
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.white, width: 2),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    articles[_index].author,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    "3 hours ago",
+                    style: TextStyle(
+                        color: Colors.white54,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Icon(
+              Icons.favorite,
+              color: Colors.red,
+              size: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Icon(
+                Icons.bookmark,
+                color: Colors.white,
+                size: 20,
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
